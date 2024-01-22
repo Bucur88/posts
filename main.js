@@ -29,17 +29,13 @@ function render(posts){
 
 async function toggleModal(itemId) {
   const modal = document.querySelector(".modal");
+  const modalContainer = document.querySelector(".modal-container");
   modal.classList.add("open");
-  const exitModal = document.querySelectorAll(".modal-exit");
-  exitModal.forEach((exit) => {
-    exit.addEventListener("click", function (event) {
-      modal.classList.remove("open");
-    });
-  });
+  
   const response = await fetch(`https://dummyjson.com/posts/${itemId}`);
   const result = await response.json();
   console.log(result);
-  const modalContainer = document.querySelector(".modal-container");
+  
   const title = document.createElement("h1");
   const titleContent = document.createTextNode(result.title);
   title.appendChild(titleContent);
@@ -51,20 +47,47 @@ async function toggleModal(itemId) {
   resultBody.style.color = "pink";
   const text = document.createElement("textarea");
   text.innerHTML = result.body;
+  const buttonCancel = document.createElement("button");
+  buttonCancel.innerHTML = "CANCEL";
+  const btnContainer =document.createElement("div");
+  btnContainer.classList.add("btn-container");
+  
   const buttonEdit = document.createElement("button");
   buttonEdit.innerHTML = "EDIT";
   modalContainer.appendChild(buttonEdit);
   const buttonSave = document.createElement("button");
   buttonSave.innerHTML = "SAVE";
+  btnContainer.append(buttonCancel, buttonSave);
   buttonEdit.addEventListener("click" ,()=> {
     
     resultBody.replaceWith(text);
 
     
-    buttonEdit.replaceWith(buttonSave);
+    buttonEdit.replaceWith(btnContainer);
   })
   buttonSave.addEventListener("click" ,()=> updatePost(itemId, text.value ))
+  buttonCancel.addEventListener("click", ()=> {
+    
+    modal.classList.remove("open");
 
+  })
+  const exitModal = document.querySelectorAll(".modal-exit");
+  exitModal.forEach((exit) => {
+  exit.addEventListener("click", function (event) {
+    modal.classList.remove("open");
+    const modalChildren = modalContainer.childNodes;
+   modalChildren.forEach(element => {
+    if(element.classList && !element.classList.contains("modal-close") ){
+      element.remove();
+    }
+    
+   });
+
+
+   
+    
+  });
+});
 }
 
 async function updatePost(itemId, textValue) {
@@ -76,8 +99,10 @@ async function updatePost(itemId, textValue) {
   })
 })
 const response = await result.json();
-console.log(response);
+//updateModal(response);
 }
+
+
 
 
 
