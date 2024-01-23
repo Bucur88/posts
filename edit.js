@@ -37,3 +37,5 @@ async function updatePost(id, title, body) {
   const result = await response.json();
   console.log(result);
 }
+
+
