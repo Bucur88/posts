@@ -1,9 +1,8 @@
-*{
-  padding:0 ;
+* {
+  padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-
 
 .modal {
   position: fixed;
@@ -21,10 +20,12 @@
   align-items: center;
   justify-content: center;
 }
+
 .modal.open {
   visibility: visible;
   opacity: 1;
 }
+
 .modal-bg {
   position: absolute;
   width: 100%;
@@ -42,6 +43,7 @@
   gap: 16px;
   max-width: 480px;
 }
+
 .modal-close {
   position: absolute;
   right: 16px;
@@ -55,14 +57,7 @@
   cursor: pointer;
 }
 
-textarea{
-  width: 400px;
-  height: 150px;
+.edit-btn {
   padding: 8px;
-  resize: none;
-}
-
-.btn-container{
-  display: flex;
-  gap: 10px;
+  margin-top: 16px;
 }
